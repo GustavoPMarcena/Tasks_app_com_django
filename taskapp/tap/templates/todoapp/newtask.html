@@ -1,7 +1,6 @@
 {% extends "./base.html" %}
-
 {% block template %}
-    <h1>Login</h1>
+<h1>Nova tarefa</h1>
     {% if messages %}
         {% for message in messages %}
             <h2 style="color: red;">{{message}}</h2>
@@ -9,10 +8,11 @@
     {% endif %}
     <form action="#" method="POST">
         {% csrf_token %}
-        <p>Username</p>
-        <input type="text" required name="username">
-        <p>senha</p>
-        <input type="password" required name="password">
-        <button>Login</button>
+        <p>Nome da tarefa</p>
+        <input type="text" required name="taskname">
+        <p>Descrição da tarefa</p>
+        <textarea name="taskdescription" required cols="30" rows="10"></textarea>
+
+        <button>Registrar</button>
     </form>
 {% endblock %}

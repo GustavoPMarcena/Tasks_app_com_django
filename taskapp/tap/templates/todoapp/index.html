@@ -1,11 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    index
-</body>
-</html>
+{% extends "./base.html" %}
+
+{% block template %}
+
+<h1>Veja suas tasks</h1>
+
+{% if tasks %}
+    {% for task in tasks %}
+        <p>{{task.task_name}}</p>
+        <p>{{task.task_description}}</p>
+    {% endfor %}
+{% else %}
+<p>Não temos tasks!!!!</p>
+{% endif %}
+
+{% endblock %}

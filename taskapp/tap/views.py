@@ -2,9 +2,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from .models import Task
 
 def index(request):
-    return render(request, 'todoapp/index.html', {})
+    tasks = Task.objects.filter(user=request.user)
+    context = {
+        'tasks':tasks
+    }
+    return render(request, 'todoapp/index.html', context)
 
 def loginview(request):
     if request.method == 'POST':
@@ -48,3 +53,16 @@ def register(request):
         
     
     return render(request, 'todoapp/register.html', {})
+
+
+def register_new_task(request):
+    if request.method == 'POST':
+        new_task_name = request.POST.get('taskname')
+        new_task_description = request.POST.get('taskdescription')
+        new_task = Task(user=request.user, task_name=new_task_name, 
+                        task_description=new_task_description)
+        new_task.save()
+        return redirect('home')
+        
+        
+    return render(request, 'todoapp/newtask.html', {})
